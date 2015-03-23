@@ -1,0 +1,35 @@
+# for Lisa, by Tim
+
+# useful shorthands
+# x = light, l = long, c = closed, s = super, i.e. long and closed
+# caps = stressed
+define usyll [x|l|c|s|r|d|m|t] ;
+define ssyll [X|L|C|S|R|D|M|T] ;
+define syll  [usyll | ssyll];
+
+# randomly insert brackets
+
+define left  [..] (->) "(" || _ syll ;
+define right [..] (->) ")" || syll _ ;
+
+# throw out forms with unmatched brackets
+define match ~$["(" syll* "("] .o. ~$[")" syll* ")"] .o. ~[?* "(" syll*] .o. ~[syll* ")" ?*] ;
+
+# randomly assign stress
+define stress x (->) X .o. l (->) L .o. c (->) C .o. s (->) S .o. r (->) R .o. d (->) D .o. m (->) M .o. t (->) T .o. m (->) R .o. t (->) D .o. r (->) M .o. d (->) T .o. t (->) d .o. d (->) t .o. r (->) m .o. m (->) r;
+
+# stress must occur within feet
+# in fact stress must occur at the edges of feet
+# this formulation also rules out feet with 2 stresses
+define stressfeet [ssyll => "(" _] | [ssyll => _ ")"] ;
+
+# no feet without stress in them
+define unfeet ~$["(" usyll* ")"];
+
+# whole thing now
+define gen left .o. right .o. match .o. stress .o. stressfeet .o. unfeet;
+
+read regex gen;
+
+# pattern for "emphasis" is "cxc"
+apply down < input

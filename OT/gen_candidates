@@ -1,0 +1,4 @@
+#!/bin/bash
+# script to automate the construction
+# create the candidate set
+./xfst -q < feet.xfst | sed -e '/^$/d' | grep '('

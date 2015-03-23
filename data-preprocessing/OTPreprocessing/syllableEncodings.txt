@@ -1,0 +1,13 @@
+Mappings condensed wordform encodings to CVMR encoding (syllable onsets are ignored):
+
+X	V.
+L	VV.
+S	VVC+.
+C	VC+.
+M	VM.
+T	VMC+.
+R	R.
+D	RC+.
+
++ denotes one or more of the preceding symbol, . denotes syllable boundary
+
